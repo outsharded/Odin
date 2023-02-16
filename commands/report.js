@@ -1,10 +1,9 @@
 const { SlashCommandBuilder, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, Client, Events, GatewayIntentBits, ModalSubmitFields} = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const mongoose = require('mongoose');
 const Setting = require('../models/SettingsSchema');
-const { colour } = require("../settings.json");
 mongoose.set('strictQuery', true);
 mongoose.connect('mongodb://127.0.0.1:27017/loki', { useNewUrlParser: true, useUnifiedTopology: true, })
+const { colour } = require("../settings.json");
 
 module.exports = {
 	data: new SlashCommandBuilder()

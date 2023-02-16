@@ -11,16 +11,11 @@ const helpEmbed1 = new EmbedBuilder()
 	.setDescription('For full commands list, go on the website.')
 	.addFields(
 		{ name: '/help', value: 'Get a command list' },
-		{ name: '/ai', value: 'Use AI to generate text, images and code' },
+		{ name: '/check', value: 'Use AI to check whether a message is offensive.' },
 		{ name: '/info', value: 'Server info' },
 		{ name: '/ping', value: 'Check if the bot is online' },
-		{ name: '/security', value: 'Create passwords and decrypt/encrypt strings.' },
-		{ name: '/rps', value: 'Play rock, paper, scissors with the bot.' },
 		{ name: '/vote', value: 'Vote for the bot' },
-		{ name: '/stack', value: 'Search for your issue on StackOverflow and return the top post' },
 		{ name: '/report', value: 'Report an issue to the staff team.' },
-		{ name: '/role', value: 'Get roles.' },
-		{ name: '/voteserver', value: 'Vote for the current server.' },
 	)
 	.setFooter({ text: 'Page 1/2' })
 	.setTimestamp()

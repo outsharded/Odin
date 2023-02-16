@@ -38,15 +38,15 @@ module.exports = {
                             { name: 'Server, Reason and Moderator (default)', value: 3 },
                         ))))
 .addSubcommandGroup(subcommand =>
-                                                                                        subcommand
-                                                                                            .setName('report')
-                                                                                            .setDescription('Settings related to users being dmed after being warned.')
-                                                                                    .addSubcommand(subcommand =>
-                                                                                        subcommand
-                                                                                            .setName('report_channel')
-                                                                                            .setDescription('Channel to send reports to.')
-                                                                                            .addChannelOption(option =>
-                                                                                                option
+                            subcommand
+                                .setName('log')
+                                .setDescription('Channel to log offensive messages and reports to.')
+                                .addSubcommand(subcommand =>
+                                    subcommand
+                                        .setName('report_channel')
+                                        .setDescription('Channel to send reports to.')
+                                        .addChannelOption(option =>
+                                            option
                                                                                                     .setName('channel')
                                                                                                     .setDescription('Channel to send report to.')
                                                                                                     .setRequired(true)
