@@ -45,9 +45,10 @@ module.exports = {
         .setTitle('Sucessful warning')
         .setDescription(`Warned <@${user.id}> for **${reason}**`)
         .setTimestamp()
-        if (dm[0].value == 'false') {
-            await interaction.reply({ embeds: [warnEmbed]});
-        } else {
+        if (dm.length === 0 || dm[0].value == 'true') {
+            if (dm_val.length === 0) {
+                await user.send(`You have been warned in **${interaction.guild.name}** for **${reason}** by <@${interaction.member.user.id}>`)
+            } else {
             if (dm_val[0].value == '2') {
                 await user.send(`You have been warned in **${interaction.guild.name}** for **${reason}**`)
             } else if (dm_val[0].value == '1') {
@@ -55,9 +56,12 @@ module.exports = {
             } else  {
                 await user.send(`You have been warned in **${interaction.guild.name}** for **${reason}** by <@${interaction.member.user.id}>`)
             }
+        }
+            await interaction.reply({ embeds: [warnEmbed]});
+        } else {
             await interaction.reply({ embeds: [warnEmbed]});
         }
-       
+    
     } catch (error) {
         await interaction.reply(error.message);
         console.error(error)

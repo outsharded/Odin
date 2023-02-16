@@ -45,7 +45,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 })();
 
     console.warn("Bot is online");
-    client.user.setActivity('/help')
+    client.user.setActivity('with the wires.')
 	return client.shard.fetchClientValues('guilds.cache.size')
 			.then(results => {
 				return console.log(`Server count: ${results.reduce((acc, guildCount) => acc + guildCount, 0)}`);

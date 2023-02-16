@@ -54,7 +54,6 @@ module.exports = {
         const user = interaction.options.getUser("user")
         try {
         const warnsUser = await Warn.find({ guildId: interaction.guild.id, userId: user.id });
-        console.log(warnsUser)
         let wLen = warnsUser.length;
         let text = "";
         for (let i = 0; i < wLen; i++) {
