@@ -1,2 +1,2 @@
-# Loki
+# Odin
 Security Discord bot.
