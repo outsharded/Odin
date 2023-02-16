@@ -1,0 +1,2 @@
+# Loki
+Security Discord bot.
