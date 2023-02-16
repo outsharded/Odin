@@ -6,6 +6,7 @@ const { colour } = require("../settings.json");
 const Warn = require('../models/WarnSchema');
 mongoose.set('strictQuery', true);
 mongoose.connect('mongodb://127.0.0.1:27017/loki', { useNewUrlParser: true, useUnifiedTopology: true, })
+const fs = require('fs')
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -35,17 +36,20 @@ module.exports = {
         console.log(warnsGuild)
         let wLen = warnsGuild.length;
 
-        let text = " ";
-        for (let i = 0; i < wLen; i++) {
-          text += '<@' + warnsGuild[i].userId + '> for ' + warnsGuild[i].reason + '\n';
-        }
 
-        const warnsEmbed = new EmbedBuilder()
+            let text = " ";
+            for (let i = 0; i < wLen; i++) {
+              text += warnsGuild[i].userId + ' for ' + warnsGuild[i].reason + '\n';
+            }
+            const warnsEmbed = new EmbedBuilder()
             .setColor(colour)
             .setTitle('Warnings in this server:')
             .setDescription(text)
             .setTimestamp()    
-        await interaction.reply({ embeds: [warnsEmbed]});
+            interaction.reply({ embeds: [warnsEmbed]});
+        
+
+
     } catch (error) {
         await interaction.reply(error.message);
         console.warn(`warns command failed.`)
@@ -71,31 +75,7 @@ module.exports = {
             await interaction.reply(error.message);
             console.warn(`userwarns command failed.`)
         }
-    } else {
-        try {
-            const warnsGuild = await Warn.find({ guildId: interaction.guild.id });
-            console.log(warnsGuild)
-            let wLen = warnsGuild.length;
-            
-        if (wLen <= 10) {
-            let text = " ";
-            for (let i = 0; i < wLen; i++) {
-              text += '<@' + warnsGuild[i].userId + '> for ' + warnsGuild[i].reason + '\n';
-            }
-        } else {
-            var pages = (wLen/10) 
-        }
-            const warnsEmbed = new EmbedBuilder()
-                .setColor(colour)
-                .setTitle('Warnings in this server:')
-                .setDescription(text)
-                .setTimestamp()    
-            await interaction.reply({ embeds: [warnsEmbed]});
-        } catch (error) {
-            await interaction.reply(error.message);
-            console.warn(`warns command failed.`)
-        }
-    }
+    } 
 		console.log('warns command - completed')
 	}
 },
