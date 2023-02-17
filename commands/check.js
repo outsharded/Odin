@@ -10,7 +10,7 @@ const { colour } = require("../settings.json");
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('check')
-		.setDescription(`Use AI to check wheter a message is offensive.`)
+		.setDescription(`Check wheter a message is offensive.`)
 		        .addStringOption(option => option
 				    .setName('message_id')
 				    .setDescription('The ID of the message that you would like to be checked.')
@@ -21,9 +21,9 @@ module.exports = {
 				    .setRequired(true)
                     .addChannelTypes(ChannelType.GuildText)),
 	async execute(interaction) {
+        interaction.deferReply()
         const channel = await interaction.options.getChannel("channel")
         const message = await channel.messages.fetch(interaction.options.getString("message_id"))
-        console.log(message)
         const bad = regex.test(message.content)
 
         if (bad == false) {
@@ -44,7 +44,7 @@ module.exports = {
                         await report_channel.send({ embeds: [whyEmbed] })
             }
                 await message.delete('Classed as offensive by a user-triggered AI check of the message.')
-                interaction.reply({ content: `This message was classed as offensive and has been deleted.`, ephemeral: true, fetchReply: true})
+                interaction.editReply({ content: `This message was classed as offensive and has been deleted.`, ephemeral: true, fetchReply: true})
 
             } catch(error) {
                 interaction.reply({ content: `This message was classed as offensive, however I could not delete it due to ${error.message}. Please report this error to an Admin.`, ephemeral: true})
