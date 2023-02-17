@@ -1,15 +1,11 @@
 const { SlashCommandBuilder, EmbedBuilder, ChannelType } = require('discord.js');
-const { OPENAI_API_KEY } = require("../config.json");
+const regex = require("../badwords.js");
 const mongoose = require('mongoose');
 const Setting = require('../models/SettingsSchema');
 mongoose.set('strictQuery', true);
 mongoose.connect('mongodb://127.0.0.1:27017/loki', { useNewUrlParser: true, useUnifiedTopology: true, })
 
-const { Configuration, OpenAIApi } = require("openai");
-const configuration = new Configuration({
-  apiKey: OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
+
 const { colour } = require("../settings.json");
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -28,14 +24,11 @@ module.exports = {
         const channel = await interaction.options.getChannel("channel")
         const message = await channel.messages.fetch(interaction.options.getString("message_id"))
         console.log(message)
-        const response = await openai.createModeration({
-            input: message.content,
-          });
-          console.log(response)
+        const bad = regex.test(message.content)
 
-        if (response.data.results[0].flagged == false) {
+        if (bad == false) {
         interaction.reply({ content: `This message was not classed as offensive.`, ephemeral: true}) 
-    	} else if (response.data.results[0].flagged == true) {
+    	} else if (bad == true) {
             try {
             const channel = await Setting.find({ type: 3, guildId: interaction.guild.id });
             if (channel.length == 0) {
@@ -51,7 +44,7 @@ module.exports = {
                         await report_channel.send({ embeds: [whyEmbed] })
             }
                 await message.delete('Classed as offensive by a user-triggered AI check of the message.')
-                interaction.reply({ content: `This message was classed as offensive and will be deleted.`, ephemeral: true, fetchReply: true})
+                interaction.reply({ content: `This message was classed as offensive and has been deleted.`, ephemeral: true, fetchReply: true})
 
             } catch(error) {
                 interaction.reply({ content: `This message was classed as offensive, however I could not delete it due to ${error.message}. Please report this error to an Admin.`, ephemeral: true})
