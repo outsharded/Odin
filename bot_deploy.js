@@ -55,7 +55,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 
 
 client.on(Events.InteractionCreate, async interaction => {
-	if (interaction.isChatInputCommand(), !interaction.isButton()){
+	if (interaction.isChatInputCommand(), interaction.isContextMenuCommand(), !interaction.isButton()){
 
 	const command = client.commands.get(interaction.commandName);
 
