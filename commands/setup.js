@@ -28,6 +28,8 @@ module.exports = {
         const automod = interaction.options.getBoolean('automod')
         const warning_dm = interaction.options.getBoolean('warning_dm')
 
+		interaction.defer()
+
 		if (automod === true) {
 			try {
 			await interaction.guild.autoModerationRules.create({
@@ -93,7 +95,7 @@ module.exports = {
 		} catch(error) {
 			interaction.channel.send(`:x: Report Channel failed to add: ${error.message}`)
 		}
-		
+		interaction.editReply('Bot setup complete!')
 },
 
 }
