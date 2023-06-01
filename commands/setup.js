@@ -28,7 +28,7 @@ module.exports = {
         const automod = interaction.options.getBoolean('automod')
         const warning_dm = interaction.options.getBoolean('warning_dm')
 
-		interaction.defer()
+		interaction.deferReply()
 
 		if (automod === true) {
 			try {

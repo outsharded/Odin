@@ -1,6 +1,6 @@
 {
   "name": "loki",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "Discord security bot",
   "main": "index.js",
   "scripts": {
@@ -9,10 +9,8 @@
   "author": "tectrainguy",
   "license": "MIT",
   "dependencies": {
-    "badword-util": "^1.0.0",
     "bufferutil": "^4.0.7",
     "discord.js": "^14.7.1",
-    "erlpack": "github:discord/erlpack",
     "mongoose": "^6.9.1",
     "node-fetch": "^3.3.0",
     "openai": "^3.1.0",
